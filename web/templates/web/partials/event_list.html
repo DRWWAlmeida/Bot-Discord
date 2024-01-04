@@ -1,0 +1,10 @@
+<div class="conteiner">
+    <h1>Event List</h1>
+    {% for event in events_list %}
+    {{event.event_name}}
+    <br>
+    {{event.event_date}}
+    <br>
+    {{event.event_message}}
+    {% endfor %}
+</div>
