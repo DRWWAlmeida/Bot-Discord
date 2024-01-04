@@ -1,4 +1,18 @@
 <div class="container">
-   <h1>Ola mundo!</h1>
+   <Form action="{% url "web:home" %}" method="POST">{% csrf_token %}
+      <Label>
+         Event Name: <input type="text" name="event_name"> 
+      </Label>   
+      <br>
+      <label>
+         Event Date: <input type="date" name="event_date">
+      </label>
+      <br>
+      <label>
+         Event Message: <input type="text" name="event_message">
+      </label>
+      <br>
+      <input type="submit" value="Submit">
+   </Form>
 </div>
     
