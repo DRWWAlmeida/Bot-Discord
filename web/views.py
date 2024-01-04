@@ -9,9 +9,12 @@ def home(request):
     elif request.method == "POST":
         event_name = request.POST.get('event_name')
         event_date = request.POST.get('event_date')
+        event_time = request.POST.get('event_time')
         event_message = request.POST.get('event_message')
-
-        return HttpResponse(event_name + event_date + event_message)
+        author = request.user
+        new_event = Event(event_name=event_name, event_date=event_date, event_time=event_time, event_message=event_message, author=author)
+        new_event.save()
+        return HttpResponse('Dados salvos no banco de dados')
     else:
         return HttpResponse('Algo deu errado')
 
