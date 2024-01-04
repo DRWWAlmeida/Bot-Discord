@@ -12,4 +12,3 @@ def home(request):
         return HttpResponse(event_name + event_date + event_message)
     else:
         return HttpResponse('Algo deu errado')
- 
