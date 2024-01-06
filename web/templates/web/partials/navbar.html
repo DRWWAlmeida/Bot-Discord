@@ -28,7 +28,9 @@
                     <span class="nav-text">
                         {{user.username}}
                     </span>
-                    <a class="btn btn-outline-danger" href="{% url 'logout' %}">Sair</a>
+                    <form action="{% url 'logout' %}" method="POST"> {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger">Sair</button>
+                    </form>    
                 {% else %}
                     <a class="btn btn-outline-primary" href="{% url 'login' %}">Entrar</a>
                     <a class="btn btn-success" href="{% url 'accounts:register' %}">Registrar</a>

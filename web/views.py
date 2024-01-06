@@ -20,7 +20,7 @@ def home(request):
 
 
 def events(request):
-    events_list = Event.objects.all()
+    events_list = Event.objects.filter(is_published=True)
     return render(request, 'web/pages/events.html', context={
         'events_list': events_list,
     })

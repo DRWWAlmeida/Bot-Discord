@@ -3,6 +3,7 @@ import datetime
 from discord.ext import commands, tasks
 from discord_keys import SECRET_TOKEN_BOT, SECRET_ID_CHANNEL_TO_SEND_MESSAGE
 
+
 TOKEN_BOT = SECRET_TOKEN_BOT
 ID_CHANNEL_TO_SEND_MESSAGE = SECRET_ID_CHANNEL_TO_SEND_MESSAGE
 
@@ -28,14 +29,15 @@ def exec():
         # await channel.send('@here')
         await channel.send('Olá a todos!')
 
-    @tasks.loop(seconds=1)
+    @tasks.loop(seconds=10)
     async def birthday():
-        now = datetime.datetime.now()
-        time = datetime.time(hour=1, minute=27, second=now.second, microsecond=now.microsecond)
-        date = datetime.date(day=10, month=12, year=now.year)
-        if now.time() == time and now.date() == date:
-            channel = bot.get_channel(ID_CHANNEL_TO_SEND_MESSAGE)
-            await channel.send('Parabéns Corno!!!')
+        for i in events:
+            now = datetime.datetime.now()
+            # time = datetime.time(hour=1, minute=27, second=now.second, microsecond=now.microsecond)
+            # date = datetime.date(day=10, month=12, year=now.year)
+            if now.time() == i.event_time and now.date() == i.event_date:
+                channel = bot.get_channel(ID_CHANNEL_TO_SEND_MESSAGE)
+                await channel.send('Parabéns Corno!!!')
 
     bot.run(TOKEN_BOT)
 
