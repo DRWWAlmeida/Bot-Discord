@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .admin import CustomUserCreationForm
 from django.contrib import messages
+from discordbot.settings import LOGIN_URL
 
 
 def register(request):
@@ -13,7 +14,7 @@ def register(request):
             user.is_valid = False
             user.save()
             messages.success(request, 'Registrado. Agora faça o login para começar!')
-            return redirect('home')
+            return redirect(LOGIN_URL)
 
         else:
             print('invalid registration details')

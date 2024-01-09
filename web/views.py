@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from web.models import Event
+from django.contrib.auth.decorators import login_required
+from discordbot.settings import LOGIN_URL
 
-
+@login_required(login_url=LOGIN_URL)
 def home(request):
     if request.method == "GET":
         return render(request, 'web/pages/home.html')

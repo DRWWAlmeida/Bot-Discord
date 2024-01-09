@@ -1,8 +1,14 @@
+from asgiref.sync import sync_to_async
+import asyncio
 import discord
 import datetime
 from discord.ext import commands, tasks
 from discord_keys import SECRET_TOKEN_BOT, SECRET_ID_CHANNEL_TO_SEND_MESSAGE
-
+import os
+import django
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "discordbot.settings")
+django.setup()
+from web.models import Event
 
 TOKEN_BOT = SECRET_TOKEN_BOT
 ID_CHANNEL_TO_SEND_MESSAGE = SECRET_ID_CHANNEL_TO_SEND_MESSAGE
@@ -27,10 +33,11 @@ def exec():
     async def task_test():
         channel = bot.get_channel(ID_CHANNEL_TO_SEND_MESSAGE)
         # await channel.send('@here')
-        await channel.send('Olá a todos!')
+        await channel.send('Salve!')
 
     @tasks.loop(seconds=10)
     async def birthday():
+        events = await sync_to_async(Event.objects.filter(is_published=True))
         for i in events:
             now = datetime.datetime.now()
             # time = datetime.time(hour=1, minute=27, second=now.second, microsecond=now.microsecond)
@@ -43,4 +50,4 @@ def exec():
 
 
 if __name__ == '__main__':
-    exec()
+    asyncio.run(exec())
