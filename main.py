@@ -1,4 +1,4 @@
-from asgiref.sync import sync_to_async
+from channels.db import database_sync_to_async
 import asyncio
 import discord
 import datetime
@@ -14,6 +14,11 @@ TOKEN_BOT = SECRET_TOKEN_BOT
 ID_CHANNEL_TO_SEND_MESSAGE = SECRET_ID_CHANNEL_TO_SEND_MESSAGE
 
 
+@database_sync_to_async
+def get_events():
+    return list(Event.objects.filter(is_published=True))
+
+
 def exec():
     intents = discord.Intents.default()
     intents.message_content = True
@@ -23,7 +28,7 @@ def exec():
     async def on_ready():
         print('Bot iniciado!')
         task_test.start()
-        birthday.start()
+        birthday.start()    
 
     @bot.command()
     async def hello(ctx):
@@ -33,11 +38,16 @@ def exec():
     async def task_test():
         channel = bot.get_channel(ID_CHANNEL_TO_SEND_MESSAGE)
         # await channel.send('@here')
+        '''
+        events = await get_events()
+        for i in events:
+            await channel.send(i.event_time)
+        '''
         await channel.send('Salve!')
 
-    @tasks.loop(seconds=10)
+    @tasks.loop(seconds=1)
     async def birthday():
-        events = await sync_to_async(Event.objects.filter(is_published=True))
+        events = await get_events()
         for i in events:
             now = datetime.datetime.now()
             # time = datetime.time(hour=1, minute=27, second=now.second, microsecond=now.microsecond)
@@ -45,6 +55,7 @@ def exec():
             if now.time() == i.event_time and now.date() == i.event_date:
                 channel = bot.get_channel(ID_CHANNEL_TO_SEND_MESSAGE)
                 await channel.send('Parabéns Corno!!!')
+                print('ok')
 
     bot.run(TOKEN_BOT)
 
