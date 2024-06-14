@@ -28,7 +28,7 @@ def exec():
     async def on_ready():
         print('Bot iniciado!')
         task_test.start()
-        birthday.start()    
+        birthday.start()
 
     @bot.command()
     async def hello(ctx):
@@ -36,26 +36,23 @@ def exec():
 
     @tasks.loop(seconds=60)
     async def task_test():
-        channel = bot.get_channel(ID_CHANNEL_TO_SEND_MESSAGE)
+        # channel = bot.get_channel(ID_CHANNEL_TO_SEND_MESSAGE)
         # await channel.send('@here')
-        '''
-        events = await get_events()
-        for i in events:
-            await channel.send(i.event_time)
-        '''
-        await channel.send('Salve!')
+        # await channel.send('Salve!')
+        print('test')
 
-    @tasks.loop(seconds=1)
+    @tasks.loop(seconds=30)
     async def birthday():
         events = await get_events()
         for i in events:
             now = datetime.datetime.now()
-            # time = datetime.time(hour=1, minute=27, second=now.second, microsecond=now.microsecond)
-            # date = datetime.date(day=10, month=12, year=now.year)
-            if now.time() == i.event_time and now.date() == i.event_date:
+            ajusted_now = datetime.time(hour=now.hour, minute=now.minute)
+            if ajusted_now == i.event_time and now.date() == i.event_date:
                 channel = bot.get_channel(ID_CHANNEL_TO_SEND_MESSAGE)
-                await channel.send('Parabéns Corno!!!')
-                print('ok')
+                await channel.send('@everyone')
+                await channel.send(f'Event "{i.event_name}"')
+                # await channel.send(f'Event by {i.author}')
+                await channel.send(i.event_message)
 
     bot.run(TOKEN_BOT)
 

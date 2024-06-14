@@ -4,6 +4,7 @@ from web.models import Event
 from django.contrib.auth.decorators import login_required
 from discordbot.settings import LOGIN_URL
 
+
 @login_required(login_url=LOGIN_URL)
 def home(request):
     if request.method == "GET":
