@@ -1,0 +1,13 @@
+{% extends "global/base.html" %}
+{% block content %}
+{% include "web/partials/register_event_body.html" %}
+{% if saved %}
+    <div class="alert alert-success" role="alert">
+    Evento Cadastrado com Sucesso!
+    </div>
+{% elif saved is False %}
+    <div class="alert alert-danger" role="alert">
+    Houve um erro, tente novamente!
+    </div>
+{% endif %}
+{% endblock content %}

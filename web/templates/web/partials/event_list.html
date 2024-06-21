@@ -1,21 +1,31 @@
-<div class="conteiner">
-    <h1>Event List</h1>
-    <table>
-        <tr>
-            <th>Event Name</th>
-            <th>Event Date</th>
-            <th>Event Time</th>
-            <th>Event Message</th>
-            <th>Author</th>
-        </tr>
-        {% for event in events_list %}
-            <tr>
-                <td>{{event.event_name}}</td>
-                <td>{{event.event_date}}</td>
-                <td>{{event.event_time}}</td>
-                <td>{{event.event_message}}</td>
-                <td>{{event.author}}</td>
-            </tr>
-        {% endfor %}        
-    </table>
+<div class="col-md-10 position-absolute top-50 start-50 translate-middle">
+    <h1>Lista de Eventos</h1>
+    <table class="table table-dark table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nome do Evento</th>
+            <th scope="col">Data do Evento</th>
+            <th scope="col">Hora do Evento</th>
+            <th scope="col">Mensagem do Evento</th>
+            <th scope="col">Autor do Evento</th>
+            <th scope="col">Evento Publicado</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for event in events_list %}
+                <tr>
+                    <td>{{event.event_name}}</td>
+                    <td>{{event.event_date}}</td>
+                    <td>{{event.event_time}}</td>
+                    <td>{{event.event_message}}</td>
+                    <td>{{event.author}}</td>
+                    {% if event.is_published == True %}
+                        <td> Sim </td>
+                    {% else %}
+                        <td> Não </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
 </div>

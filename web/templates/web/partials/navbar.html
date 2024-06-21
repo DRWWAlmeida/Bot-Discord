@@ -1,45 +1,73 @@
-<nav class="navbar navbar-expand-lg border-bottom">
-
-    <div class="container-fluid">
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
-            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <a class="navbar-brand" href="#">Myapp</a>
-
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Inicio</a>
-                </li> 
-
-                <li class="nav-item">
-                    <a class="nav-link disabled">Desativado</a>
-                </li>
-
-            </ul>
-
-            <div class="d-flex gap-3 align-items-center">
-                {% if user.is_authenticated %}
-                    <span class="nav-text">
-                        {{user.username}}
-                    </span>
-                    <form action="{% url 'logout' %}" method="POST"> {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-danger">Sair</button>
-                    </form>    
-                {% else %}
-                    <a class="btn btn-outline-primary" href="{% url 'login' %}">Entrar</a>
-                    <a class="btn btn-success" href="{% url 'accounts:register' %}">Registrar</a>
-                {% endif %} 
-
+<header>
+    <!-- Navbar -->
+    <i class="fa-thin fa-robot"></i>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-body-tertiary">
+    <!-- Container wrapper -->
+    <div class="container">
+      <!-- Navbar brand -->
+        <i class="fa-thin fa-robot"></i>
+  
+      <!-- Toggle button -->
+      <button
+        data-mdb-collapse-init
+        class="navbar-toggler"
+        type="button"
+        data-mdb-target="#navbarButtonsExample"
+        aria-controls="navbarButtonsExample"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+  
+      <!-- Collapsible wrapper -->
+      <div class="collapse navbar-collapse" id="navbarButtonsExample">
+        <!-- Left links -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'web:home' %}">
+              <button class="btn btn-primary me-3" type="button">Cadastrar Evento</button>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'web:events' %}">
+              <button class="btn btn-primary me-3" type="button">Eventos Cadastrados</button>
+            </a>
+          </li>
+        </ul>
+        <!-- Left links -->
+        {% if user.is_authenticated %}
             </div>
-           
-        </div>
-
+            <div class="d-flex align-items-center">
+                <!--
+                <button action="{% url 'login' %} "data-mdb-ripple-init type="button" class="btn btn-primary me-3">
+                    Perfil
+                </button>
+                -->
+                <Form method="POST">{% csrf_token %}
+                    <button formaction="{% url 'logout' %}" data-mdb-ripple-init type="submit" class="btn btn-danger me-3">
+                        Sair
+                    </button>
+                </Form>                   
+            </div>
+        {% else %}
+            <div class="d-flex align-items-center">
+                <a href="{% url 'login' %}" class="">
+                    <button data-mdb-ripple-init type="button" class="btn btn-success me-3">
+                        Login
+                    </button>
+                </a>
+                <a href="{% url 'accounts:register' %}">
+                    <button data-mdb-ripple-init type="button" class="btn btn-primary me-3">
+                        Registrar
+                    </button>
+                </a>
+        {% endif %}
+      </div>
+      <!-- Collapsible wrapper -->
     </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->
 
-</nav>
+</header>

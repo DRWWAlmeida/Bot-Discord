@@ -1,0 +1,26 @@
+<div class="col-md-4 position-absolute top-50 start-50 translate-middle">
+  {% if user.is_authenticated %}
+    <h1>Olá, {{user.username}}.</h1>  
+  {% endif %} 
+   <Form action="{% url "web:home" %}" method="POST">{% csrf_token %}
+      <p>Cadastre seu evento aqui.</p>
+      <div class="mb-3">
+         <label class="form-label">Nome do Evento:</label>
+         <input type="text" class="form-control" style='width: 300px' name='event_name'>
+       </div>
+       <div class="mb-3">
+         <label class="form-label">Data do Evento:</label>
+         <input type="date" class="form-control" style='width: 300px' name='event_date'>
+       </div>
+       <div class="mb-3">
+         <label class="form-label">Horario do Evento:</label>
+         <input type="time" class="form-control" style='width: 300px' name='event_time'>
+       </div>
+       <div class="mb-3">
+         <label class="form-label">Mensagem do evento:</label>
+         <input type="text" class="form-control" style='width: 300px' name='event_message'>
+       </div>
+      <input type="submit" value="Cadastrar">
+   </Form>
+</div>
+    

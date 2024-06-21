@@ -50,7 +50,7 @@ def exec():
             if ajusted_now == i.event_time and now.date() == i.event_date:
                 channel = bot.get_channel(ID_CHANNEL_TO_SEND_MESSAGE)
                 await channel.send('@everyone')
-                await channel.send(f'Event "{i.event_name}"')
+                await channel.send(f'Evento iniciado "{i.event_name}"')
                 # await channel.send(f'Event by {i.author}')
                 await channel.send(i.event_message)
 
