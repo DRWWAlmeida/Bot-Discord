@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, JsonResponse
 from web.models import Event
 from django.contrib.auth.decorators import login_required
 from discordbot.settings import LOGIN_URL
+
 
 
 @login_required(login_url=LOGIN_URL)
@@ -29,3 +30,11 @@ def events(request):
     return render(request, 'web/pages/events.html', context={
         'events_list': events_list,
     })
+
+
+def api(request):
+    if request.method == 'GET':
+        events_list = list(Event.objects.values())
+        return JsonResponse(events_list, safe=False)
+    else:
+        return Http404
